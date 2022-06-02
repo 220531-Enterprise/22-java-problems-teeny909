@@ -1,5 +1,7 @@
 package com.revature.eval.java.core;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -91,8 +93,20 @@ public class EvaluationService {
 	 * Value".
 	 */
 	public String printMegaBytesAndKiloBytes(int XX) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		if(XX < 0 )
+			return "Invalid Value";
+		else {
+			int mb = 0;
+			int remKb = 0;
+			
+			mb = XX / 1024;
+			remKb = XX % 1024;
+			
+			String str = XX + " KB = " + mb +" MB and " + remKb + " KB";
+			return str;
+			
+		}
+		
 	}
 
 	/**
@@ -116,6 +130,12 @@ public class EvaluationService {
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
 		// TODO Write an implementation for this method declaration
+		if(hourOfDay > 23 || hourOfDay < 0 )
+			return false; 
+		else if((hourOfDay < 8 || hourOfDay > 22) && isBarking) {
+			return true; 
+		}
+		
 		return false;
 	}
 
@@ -132,6 +152,14 @@ public class EvaluationService {
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
 		// TODO Write an implementation for this method declaration
+		DecimalFormat df = new DecimalFormat("#.###");
+		df.setRoundingMode(RoundingMode.DOWN);
+		String str1 = df.format(firstNum);
+		String str2 = df.format(secondNum);
+		
+		
+		if(str1.equals(str2))
+			return true;
 		return false;
 	}
 
@@ -148,7 +176,8 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-			// TODO Write an implementation for this method declaration
+			if( isTeen(x) ||isTeen(y) || isTeen(z) )
+				return true;
 			return false;
 		}
 
@@ -157,6 +186,8 @@ public class EvaluationService {
 
 		public static boolean isTeen(int number) {
 			// TODO Write an implementation for this method declaration
+			if(number >= 13 && number<=19)
+				return true;
 			return false;
 		}
 	}
@@ -178,7 +209,13 @@ public class EvaluationService {
 	 */
 	public String printYearsAndDays(long minutes) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		if(minutes < 0)
+			return "Invalid Value";
+		long YY = minutes / 525600;
+		long mod = minutes % 525600;
+		long ZZ = mod / 1440;
+		return  minutes + " min = "+ YY + " y and " + ZZ + " d";
+		
 	}
 
 	/**
@@ -192,7 +229,31 @@ public class EvaluationService {
 	 */
 	public String printNumberInWord(int number) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		switch(number) {
+		case 0:
+			return "ZERO";
+		case 1: 
+			return "ONE";
+		case 2: 
+			return "TWO";
+		case 3: 
+			return "THREE";
+		case 4: 
+			return "FOUR";
+		case 5: 
+			return "FIVE";
+		case 6: 
+			return "SIX";
+		case 7: 
+			return "SEVEN";
+		case 8: 
+			return "EIGHT";
+		case 9: 
+			return "NINE";
+		default:
+			return "OTHER";	
+		}
+		
 	}
 
 	/**
