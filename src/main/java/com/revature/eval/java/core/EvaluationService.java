@@ -277,7 +277,14 @@ public class EvaluationService {
 	 */
 	public int getGreatestCommonDivisor(int first, int second) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int gcd = 1; 
+		if(first < 10 || second < 10)
+			return -1;
+		for(int i =1; i <= first && i <= second; i++) {
+			if(first % i == 0 && second % i ==0)
+				gcd = i;
+		}
+		return gcd;
 	}
 
 	/**
@@ -295,7 +302,14 @@ public class EvaluationService {
 	 */
 	public int sumFirstAndLastDigit(int num) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int n = num;
+		if(num < 0)
+			return -1; 
+		int last = (num % 10);
+		while(n >= 10)
+			n /=10;
+		
+		return last + n;
 	}
 
 	/**
@@ -304,9 +318,15 @@ public class EvaluationService {
 	 * Without using the StringBuilder or StringBuffer class, write a method that
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
+	
+	//DONE
 	public String reverse(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String str = "";
+		for(int i = string.length() -1; i >=0; i--) {
+			str += string.charAt(i);
+		}
+		return str;
 	}
 
 	/**
@@ -317,8 +337,25 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] strArr = phrase.split(" ");
+		
+		String acr = "";
+		for(String str : strArr) {
+			//resolve dashes 
+			
+			if(str.contains("-")) {
+				String[] dashArr = str.split("-");
+				for(String s: dashArr)
+					acr+= s.toUpperCase().charAt(0);
+			}
+			else {
+				acr += str.toUpperCase().charAt(0);
+			}
+				
+			
+		}
+		
+		return acr;
 	}
 
 	/**
@@ -373,18 +410,17 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return ((this.getSideOne() == this.getSideTwo()) && this.getSideTwo() == this.getSideThree());
+			
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return ((this.getSideOne() == this.getSideTwo()) || this.getSideTwo() == this.getSideThree() || this.getSideOne() == this.getSideThree());
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			return ((this.getSideOne() != this.getSideTwo()) && this.getSideTwo() != this.getSideThree());
 		}
 
 	}
@@ -405,7 +441,27 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int pts = 0; 
+		string=string.toUpperCase();
+		for(int i = 0; i < string.length(); i++) {
+			char ch = string.charAt(i);
+			if(ch == 'G'  || ch == 'D')
+				pts+=2; 
+			else if(ch == 'B' || ch == 'C' || ch == 'M' || ch == 'P')
+				pts+= 3;
+			else if(ch == 'F' || ch == 'H' ||ch == 'V' || ch == 'W' || ch == 'Y')
+				pts+=4;
+			else if(ch == 'K')
+				pts+=5;
+			else if(ch == 'J' || ch == 'X')
+				pts+=8;
+			else if(ch == 'Z' || ch == 'Q' )
+				pts += 10;
+			else
+				pts += 1;
+		}
+		return pts;
+	
 	}
 
 	/**
@@ -442,7 +498,15 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		return null;
+		//remove all non-numeric characters via regex / replace all 
+		String s = string.replaceAll("[^0-9]", "");
+		//if invalid throw illegal arg except 
+		if(s.length() != 10)
+			throw new IllegalArgumentException();
+		//remove 1 if first one 
+		if(s.charAt(0) == '1')
+			s = s.substring(1);
+		return string.replaceAll("[^0-9]", "");
 	}
 
 	/**
