@@ -506,7 +506,7 @@ public class EvaluationService {
 		//remove 1 if first one 
 		if(s.charAt(0) == '1')
 			s = s.substring(1);
-		return string.replaceAll("[^0-9]", "");
+		return s;
 	}
 
 	/**
