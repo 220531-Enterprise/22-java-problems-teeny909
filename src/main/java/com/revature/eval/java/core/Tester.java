@@ -1,45 +1,53 @@
 package com.revature.eval.java.core;
 
-import java.text.DecimalFormat;
+
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Tester {
 	public static void main(String[] args) {
-		System.out.println(toMilesPerHour(430));
 		
-		areEqualByThreeDecimalPlaces(-3.1756, -3.175);
+		int[] set = { 3, 5};
+		System.out.println("78? " + getSumOfMultiples(20, set));
 	}
-
-	public static long toMilesPerHour(double kilometersPerHour) {
-		// TODO Write an implementation for this method declaration
+	
+public static int getSumOfMultiples(int i, int[] set) {
 		
-		//check if params is less than 0, if so return -1 
-		//else, calc mph round and return 
+		//below i, multiples of nums in set 
+		//for each num in set, find all multiples of the number in set that are below i 
 		
 		
-		//find out formula to convert kph to mph, then return 
+		Set<Integer> s = new HashSet<Integer>();
 		
-		if(kilometersPerHour < 0 )
-			return -1; 
-		else {
-			long mph = Math.round(kilometersPerHour/ 1.609); 
-			return mph;
+		for(int x = 0; x < set.length; x++) {
+			int num = set[x];
+			int counter = 0; 
+			
+			while((set[x]*counter) < i) {
+				counter++;	
+				num = set[x] * counter;
+				if(num < i)
+					s.add(num);
+			}
+			
+			//all multiples of one num in set done 
+			
+			System.out.println("list: " + s.toString());
 		}
-		
+		//all multiples of all nums in set done 
+		//sum of all the multiples now
+		int sum = 0;
+		for(Integer x: s)
+			sum+=x;
+		return sum;
 	}
-	public static boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		// TODO Write an implementation for this method declaration
+	
+	
+
+	
 		
-		DecimalFormat df = new DecimalFormat("#.###");
-		
-		String str1 = df.format(firstNum);
-		String str2 = df.format(secondNum);
-		
-		System.out.println("fround: " + str1);
-		System.out.println("sround"+str2);
-		if(str1.equals(str2))
-			return true;
-		return false;
-	}
 	
 	
 }
