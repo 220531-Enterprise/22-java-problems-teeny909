@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -588,10 +589,23 @@ public class EvaluationService {
 	 * 
 	 * Note that 1 is not a prime number.
 	 */
+
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-	
-		return null;
+		int number = (int) l;
+		List<Long> nums = new LinkedList<>();
+		for (int i = 2; i <= number; i++) {
+			while (number % i == 0) {
+				// System.out.println(i + " help ");
+				nums.add((long) i);
+				number = number / i;
+			}
+		}
+		if (number > 2) {
+			// System.out.println(number);
+			nums.add((long) number);
+		}
+		return nums;
 	}
 
 	/**
@@ -605,10 +619,36 @@ public class EvaluationService {
 	 * If your language provides methods in the standard library to deal with prime
 	 * numbers, pretend they don't exist and implement them yourself.
 	 */
+	//checks if a num is prime 
+	public static boolean isPrime(int n) {
+		if(n <= 1)
+			return false;
+		
+		for(int i = 2; i <= Math.sqrt(n); i++) {
+			if(n % i == 0)
+				return false;
+			
+		}
+		return true;
+	}
 	public int calculateNthPrime(int k) {
-		// TODO Write an implementation for this method declaration
-
-		return 0;
+		if(k < 1)
+			throw new IllegalArgumentException();
+		if(k==1)
+			return 2;
+		int i = 1;
+		int count = 1;
+		//run until we find kth prime 
+		//count != k
+		while(count != k) {
+			//all evens are NOT prime, check only odds 
+			i+=2;
+			if(isPrime(i))
+				count++;
+			
+		}
+		return i;
+		
 	}
 
 	/**
@@ -625,29 +665,30 @@ public class EvaluationService {
 	 */
 	public boolean isPangram(String string) {
 		String str = string.toLowerCase();
-		str = str.replace(" " , "");
-		
-		//casting char->int gives ascii code
-		//use it w respect to 'a' and we get ez encoding
-		boolean[] present = new boolean[26]; //26 letters in alphabet 
-		
-		//for each letter in our string, mark it if it is present 
-		//a -> present[0]
-		//z -> presnet[25]
-		for(int i = 0; i < str.length(); i++ ) {
+		str = str.replace(" ", "");
+
+		// casting char->int gives ascii code
+		// use it w respect to 'a' and we get ez encoding
+		boolean[] present = new boolean[26]; // 26 letters in alphabet
+
+		// for each letter in our string, mark it if it is present
+		// a -> present[0]
+		// z -> present[25]
+		for (int i = 0; i < str.length(); i++) {
 			int letter = str.charAt(i) - 'a';
 			present[letter] = true;
 		}
-		//for every letter in the word, if it is present we marked it as true 
-		//if it is not present, defaulted to false so it is flagged in the next bit 
-		
-		//now for every letter in alphabet, if current char is not present in string, return false otherwise true 
-		for(int i = 0; i < 26; i++) {
-			if(!present[i])
+		// for every letter in the word, if it is present we marked it as true
+		// if it is not present, defaulted to false so it is flagged in the next bit
+
+		// now for every letter in alphabet, if current char is not present in string,
+		// return false otherwise true
+		for (int i = 0; i < 26; i++) {
+			if (!present[i])
 				return false;
 		}
 		return true;
-		
+
 	}
 
 	/**
@@ -684,7 +725,6 @@ public class EvaluationService {
 			}
 			// all multiples of one num in set done
 
-			
 		}
 		// all multiples of all nums in set done
 		// sum of all the multiples now
